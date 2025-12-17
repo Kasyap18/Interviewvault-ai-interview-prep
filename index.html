@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InterviewVault: AI Interview Prep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom scrollbar for a more modern look */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1e293b; /* slate-800 */
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #475569; /* slate-600 */
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #64748b; /* slate-500 */
+      }
+      
+      /* Custom styles for progress sliders */
+      input[type=range].slider-progress {
+        --range-progress: 0%;
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+        width: 100%;
+      }
+      input[type=range].slider-progress:focus {
+        outline: none;
+      }
+      
+      input[type=range].slider-progress::-webkit-slider-runnable-track {
+        background: linear-gradient(to right, #4f46e5 var(--range-progress), #334155 var(--range-progress));
+        height: 0.4rem;
+        border-radius: 0.5rem;
+      }
+      
+      input[type=range].slider-progress::-moz-range-track {
+          background: linear-gradient(to right, #4f46e5 var(--range-progress), #334155 var(--range-progress));
+          height: 0.4rem;
+          border-radius: 0.5rem;
+      }
+      
+      input[type=range].slider-progress::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        margin-top: -6px; /* Centers thumb on the track */
+        background-color: #e0e7ff;
+        height: 1.25rem;
+        width: 1.25rem;
+        border-radius: 9999px;
+        border: 2px solid #4f46e5;
+      }
+      
+      input[type=range].slider-progress::-moz-range-thumb {
+        border: none;
+        background-color: #e0e7ff;
+        height: 1.25rem;
+        width: 1.25rem;
+        border-radius: 9999px;
+        border: 2px solid #4f46e5;
+      }
+
+      /* Simple fade-in animation */
+      .fade-in {
+        animation: fadeInAnimation 0.5s ease-in-out;
+      }
+      @keyframes fadeInAnimation {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.8.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-slate-900 text-slate-200">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
