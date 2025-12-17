@@ -102,26 +102,28 @@ interviewvault-ai-interview-prep/
 
 ---
 
-Here is a clean, professional, and visually appealing version of your Local Setup and Roadmap sections, formatted specifically for a GitHub README.md.
-
 ## ⚙️ Running the Project Locally
 
 1️⃣ Clone the repository
+
 git clone https://github.com/Kasyap18/Interviewvault-ai-interview-prep.git
 cd Interviewvault-ai-interview-prep
 
 2️⃣ Install dependencies
+
 npm install
 
 3️⃣ Create a `.env` file
+
 VITE_GEMINI_API_KEY=your_api_key_here
 
 4️⃣ Start the application
+
 npm run dev
 
 ---
 
-🔮 What’s Next
+## 🔮 What’s Next
 
 Resume-based mock interview simulations
 
