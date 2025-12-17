@@ -86,11 +86,17 @@ Structured preparation for **company-specific interviews**.
 ## 📁 Project Structure
 
 interviewvault-ai-interview-prep/
+
 ├── components/ # UI components
+
 ├── services/ # AI integration logic
+
 ├── App.tsx # Main application
+
 ├── index.tsx # Entry point
+
 ├── package.json
+
 └── README.md
 
 
@@ -104,13 +110,16 @@ git clone https://github.com/Kasyap18/Interviewvault-ai-interview-prep.git
 cd Interviewvault-ai-interview-prep
 
 ### 2️⃣ Install dependencies
+```bash
 npm install
 
 ### 3️⃣ Create a .env file
+```bash
 VITE_GEMINI_API_KEY=your_api_key_here
 ⚠️ Do not push .env to GitHub.
 
 ### 4️⃣ Start the application
+```bash
 npm run dev
 
 
