@@ -104,30 +104,25 @@ interviewvault-ai-interview-prep/
 
 Here is a clean, professional, and visually appealing version of your Local Setup and Roadmap sections, formatted specifically for a GitHub README.md.
 
-⚙️ Local Setup Guide
-Follow these steps to get the project up and running on your local machine.
+## ⚙️ Running the Project Locally
 
-1. Clone the Repository
-Bash
-
+### 1️⃣ Clone the repository
+```bash
 git clone https://github.com/Kasyap18/Interviewvault-ai-interview-prep.git
 cd Interviewvault-ai-interview-prep
-2. Install Dependencies
-Bash
 
+### 2️⃣ Install dependencies
+```bash
 npm install
-3. Configure Environment Variables
-Create a .env file in the root directory and add your API key:
 
-Bash
-
+### 3️⃣ Create a `.env` file
+```env
 VITE_GEMINI_API_KEY=your_api_key_here
-[!IMPORTANT] Never commit your .env file to version control. It is already included in the .gitignore.
 
-4. Launch the Application
-Bash
-
+### 4️⃣ Start the application
+```bash
 npm run dev
+
 
 
 🔮 What’s Next
