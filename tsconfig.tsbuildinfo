@@ -1,0 +1,1 @@
+{"root":["./app.tsx","./index.tsx","./types.ts","./vite.config.ts","./components/authpage.tsx","./components/dashboard.tsx","./components/usertypeselector.tsx","./components/ui.tsx","./services/geminiservice.ts"],"version":"5.8.3"}

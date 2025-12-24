@@ -5,7 +5,11 @@ if (!process.env.API_KEY) {
     console.warn("API_KEY environment variable not set. Using a placeholder. AI features will not work.");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "AIzaSyDlOYl3Qu86wwDglmTyixBdJaoAYq4Ec2s" });
+if (!process.env.API_KEY) {
+    throw new Error("API_KEY environment variable is not set. Please check your .env file or deployment settings.");
+}
+
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export async function generateQuestions(
     resumeOrJdText: string,
