@@ -8,9 +8,9 @@ if (!process.env.API_KEY) {
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "AIzaSyDlOYl3Qu86wwDglmTyixBdJaoAYq4Ec2s" });
 
 export async function generateQuestions(
-    resumeOrJdText: string, 
-    userType: UserType, 
-    techQuestions: number, 
+    resumeOrJdText: string,
+    userType: UserType,
+    techQuestions: number,
     nonTechQuestions: number
 ): Promise<{ skills: string[], technicalQuestions: string[], nonTechnicalQuestions: string[] }> {
     const prompt = `

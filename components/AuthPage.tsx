@@ -8,7 +8,7 @@ interface AuthPageProps {
 }
 
 const AuthPage: React.FC<AuthPageProps> = ({ onAuthSuccess }) => {
-  const [mode, setMode] = useState<AuthMode>('login');
+  const [mode, setMode] = useState<AuthMode>('signup');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -24,18 +24,50 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthSuccess }) => {
     e.preventDefault();
     setError('');
     setMessage('');
+
     if (!username || !password) {
       setError('Username and password are required.');
       return;
     }
 
     if (mode === 'signup') {
-      // Simulate successful registration
+      // Check if user already exists
+      const existingUser = localStorage.getItem(username);
+      if (existingUser) {
+        setError('User already exists. Please log in.');
+        return;
+      }
+
+      // Save user to localStorage
+      // In a real app, NEVER store passwords in plain text.
+      localStorage.setItem(username, JSON.stringify({ password }));
+
       setMessage('Successfully registered! Please log in.');
       setMode('login');
+      // Optional: clear fields
+      // setUsername('');
+      // setPassword('');
     } else {
-      // Simulate successful login
-      onAuthSuccess();
+      // Login Mode
+      const storedData = localStorage.getItem(username);
+
+      if (!storedData) {
+        setError('User not found. Please sign up first.');
+        return;
+      }
+
+      try {
+        const parsedData = JSON.parse(storedData);
+        if (parsedData.password !== password) {
+          setError('Invalid password.');
+          return;
+        }
+        // Success
+        onAuthSuccess();
+      } catch (err) {
+        console.error("Error parsing user data", err);
+        setError('Error reading user data. Please sign up again.');
+      }
     }
   };
 
@@ -43,7 +75,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthSuccess }) => {
     <div className="min-h-screen flex items-center justify-center bg-slate-900 p-4 bg-[radial-gradient(circle_at_top,_#1e293b,_#0f172a)]">
       <div className="w-full max-w-md">
         <div className="flex justify-center mb-8">
-            <Logo className="h-16 w-16 text-indigo-400" />
+          <Logo className="h-16 w-16 text-indigo-400" />
         </div>
         <h1 className="text-3xl font-bold text-center text-slate-100 mb-2">Welcome to InterviewVault</h1>
         <p className="text-center text-slate-400 mb-8">Your personal AI-powered interview coach.</p>
