@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { UserType, NavItemId, JobSuggestion, ResumeFeedback, InterviewPrep } from '../types';
 import { Button, Card, Input, Slider, Spinner, Logo, QAGeneratorIcon, KnowYourJobIcon, ResumeCheckerIcon, InterviewPrepIcon, LogoutIcon, DocumentTextIcon, ArrowUpTrayIcon, CheckCircleIcon, ChevronDownIcon, ClipboardIcon, FileUpload } from './ui';
 import * as geminiService from '../services/geminiService';
+import MockInterview from './MockInterview';
 
 // --- MODULE COMPONENTS (defined outside Dashboard to prevent re-renders) ---
 
@@ -21,9 +22,9 @@ interface GeneratedAnswer {
 
 const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
     const [inputType, setInputType] = useState<InputType>('resume');
-    const [resumeFile, setResumeFile] = useState<{name: string, content: string} | null>(null);
+    const [resumeFile, setResumeFile] = useState<{ name: string, content: string } | null>(null);
     const [jdText, setJdText] = useState('');
-    
+
     const [techQuestionsCount, setTechQuestionsCount] = useState(5);
     const [nonTechQuestionsCount, setNonTechQuestionsCount] = useState(5);
 
@@ -34,7 +35,7 @@ const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
     const [technicalQuestions, setTechnicalQuestions] = useState<string[]>([]);
     const [nonTechnicalQuestions, setNonTechnicalQuestions] = useState<string[]>([]);
     const [answers, setAnswers] = useState<Record<string, GeneratedAnswer>>({});
-    
+
     const inputText = useMemo(() => inputType === 'resume' ? resumeFile?.content : jdText, [inputType, resumeFile, jdText]);
     const isGenerateDisabled = isLoading || !inputText || (techQuestionsCount === 0 && nonTechQuestionsCount === 0);
 
@@ -42,14 +43,14 @@ const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
         event.preventDefault();
         const file = event.dataTransfer.files?.[0];
         if (file) {
-           readFile(file);
+            readFile(file);
         }
     };
-    
+
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
-           readFile(file);
+            readFile(file);
         }
     };
 
@@ -106,18 +107,18 @@ const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
             const modifiedText = await geminiService.modifyAnswer(question, currentAnswer.text, type);
             setAnswers(prev => ({ ...prev, [question]: { text: modifiedText, isLoading: false } }));
         } catch (e: any) {
-            setAnswers(prev => ({ ...prev, [question]: { ...prev[question], isLoading: false, error: `Failed to ${type} answer.` }}));
+            setAnswers(prev => ({ ...prev, [question]: { ...prev[question], isLoading: false, error: `Failed to ${type} answer.` } }));
         }
     };
-    
+
     const QuestionCard = ({ question }: { question: string }) => {
         const answer = answers[question];
         const [isCopied, setIsCopied] = useState(false);
 
         const handleCopy = () => {
-          navigator.clipboard.writeText(question);
-          setIsCopied(true);
-          setTimeout(() => setIsCopied(false), 2000);
+            navigator.clipboard.writeText(question);
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 2000);
         };
 
         return (
@@ -125,7 +126,7 @@ const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
                 <div className="flex justify-between items-start gap-2">
                     <p className="font-semibold text-slate-200">{question}</p>
                     <button onClick={handleCopy} title="Copy question" className="text-slate-400 hover:text-indigo-400 transition-colors shrink-0">
-                      {isCopied ? <CheckCircleIcon className="h-5 w-5 text-green-400" /> : <ClipboardIcon className="h-5 w-5" />}
+                        {isCopied ? <CheckCircleIcon className="h-5 w-5 text-green-400" /> : <ClipboardIcon className="h-5 w-5" />}
                     </button>
                 </div>
                 {!answer ? (
@@ -176,20 +177,20 @@ const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
                 <h2 className="text-3xl font-bold text-slate-100 mb-2">Q&A Generator</h2>
                 <p className="text-slate-400">Generate tailored interview questions from a resume or job description.</p>
             </div>
-            
+
             {/* Step 1: Input Type Selection */}
             <div className="space-y-3">
                 <h3 className="font-semibold text-slate-300">Step 1: Choose your input type</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div onClick={() => setInputType('resume')} className={`flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all ${inputType === 'resume' ? 'bg-indigo-600/20 border-indigo-500 shadow-lg shadow-indigo-500/10' : 'bg-slate-800/50 border-slate-700 hover:border-slate-500'}`}>
-                        <DocumentTextIcon className="h-8 w-8 text-indigo-400"/>
+                        <DocumentTextIcon className="h-8 w-8 text-indigo-400" />
                         <div>
                             <h4 className="font-bold text-slate-100">From Resume</h4>
                             <p className="text-sm text-slate-400">Upload a file (PDF, DOC, TXT)</p>
                         </div>
                     </div>
-                     <div onClick={() => setInputType('jd')} className={`flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all ${inputType === 'jd' ? 'bg-indigo-600/20 border-indigo-500 shadow-lg shadow-indigo-500/10' : 'bg-slate-800/50 border-slate-700 hover:border-slate-500'}`}>
-                        <ClipboardIcon className="h-8 w-8 text-indigo-400"/>
+                    <div onClick={() => setInputType('jd')} className={`flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all ${inputType === 'jd' ? 'bg-indigo-600/20 border-indigo-500 shadow-lg shadow-indigo-500/10' : 'bg-slate-800/50 border-slate-700 hover:border-slate-500'}`}>
+                        <ClipboardIcon className="h-8 w-8 text-indigo-400" />
                         <div>
                             <h4 className="font-bold text-slate-100">From Job Description</h4>
                             <p className="text-sm text-slate-400">Paste text directly</p>
@@ -200,21 +201,21 @@ const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
 
             {/* Step 2: Input Content */}
             <div className="space-y-3">
-                 <h3 className="font-semibold text-slate-300">Step 2: Provide the content</h3>
+                <h3 className="font-semibold text-slate-300">Step 2: Provide the content</h3>
                 {inputType === 'resume' ? (
-                     <div onDragOver={(e) => e.preventDefault()} onDrop={handleFileDrop} onClick={() => document.getElementById('resume-upload')?.click()} className="relative flex flex-col items-center justify-center w-full p-8 border-2 border-dashed border-slate-600 rounded-lg text-center cursor-pointer hover:border-indigo-500 transition-colors bg-slate-800/30">
+                    <div onDragOver={(e) => e.preventDefault()} onDrop={handleFileDrop} onClick={() => document.getElementById('resume-upload')?.click()} className="relative flex flex-col items-center justify-center w-full p-8 border-2 border-dashed border-slate-600 rounded-lg text-center cursor-pointer hover:border-indigo-500 transition-colors bg-slate-800/30">
                         <input type="file" id="resume-upload" className="hidden" onChange={handleFileSelect} accept=".pdf,.doc,.docx,.txt" />
                         <ArrowUpTrayIcon className="h-10 w-10 text-slate-500 mb-3" />
                         {resumeFile ? (
-                          <div className="flex items-center gap-2 text-green-400">
-                             <CheckCircleIcon className="h-6 w-6" />
-                             <span className="font-semibold">{resumeFile.name} uploaded</span>
-                          </div>
+                            <div className="flex items-center gap-2 text-green-400">
+                                <CheckCircleIcon className="h-6 w-6" />
+                                <span className="font-semibold">{resumeFile.name} uploaded</span>
+                            </div>
                         ) : (
-                          <>
-                            <p className="font-semibold text-slate-300">Drag & drop your resume here</p>
-                            <p className="text-slate-400">or click to browse</p>
-                          </>
+                            <>
+                                <p className="font-semibold text-slate-300">Drag & drop your resume here</p>
+                                <p className="text-slate-400">or click to browse</p>
+                            </>
                         )}
                     </div>
                 ) : (
@@ -232,28 +233,28 @@ const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
 
             {/* Step 3: Question Preferences */}
             <div className="space-y-3">
-                 <h3 className="font-semibold text-slate-300">Step 3: Set your preferences</h3>
-                 <Card className="!p-4">
+                <h3 className="font-semibold text-slate-300">Step 3: Set your preferences</h3>
+                <Card className="!p-4">
                     <div className="grid md:grid-cols-2 gap-6">
                         <Slider label="Technical Questions" min={0} max={15} value={techQuestionsCount} onChange={(e) => setTechQuestionsCount(parseInt(e.target.value))} />
                         <Slider label="Non-Technical Questions" min={0} max={10} value={nonTechQuestionsCount} onChange={(e) => setNonTechQuestionsCount(parseInt(e.target.value))} />
                     </div>
-                 </Card>
+                </Card>
             </div>
-            
+
             {/* Step 4: Generate */}
             <div>
-                 <Button onClick={handleGenerateQuestions} disabled={isGenerateDisabled} className="w-full !py-3 !text-lg !font-bold">
+                <Button onClick={handleGenerateQuestions} disabled={isGenerateDisabled} className="w-full !py-3 !text-lg !font-bold">
                     {isLoading ? 'Generating...' : '🎯 Generate Questions'}
                 </Button>
             </div>
-            
+
             {error && <p className="text-red-400 text-center">{error}</p>}
-            {isLoading && <Spinner className="!h-24"/>}
+            {isLoading && <Spinner className="!h-24" />}
 
             {/* Step 5 & 6: Display Results */}
             {(generatedSkills.length > 0 || technicalQuestions.length > 0 || nonTechnicalQuestions.length > 0) && (
-                 <div className="space-y-6 pt-4 border-t border-slate-700/50">
+                <div className="space-y-6 pt-4 border-t border-slate-700/50">
                     {generatedSkills.length > 0 && (
                         <Card className="fade-in">
                             <h3 className="text-xl font-semibold mb-3 text-indigo-400">Extracted Key Skills</h3>
@@ -264,7 +265,7 @@ const QAGenerator: React.FC<ModuleProps> = ({ userType }) => {
                     )}
                     <CollapsibleSection title="👨‍💻 Technical Questions" questions={technicalQuestions} />
                     <CollapsibleSection title="🗣️ Non-Technical Questions" questions={nonTechnicalQuestions} />
-                 </div>
+                </div>
             )}
         </div>
     );
@@ -306,7 +307,7 @@ const KnowYourJob: React.FC<ModuleProps> = ({ userType }) => {
             setIsLoading(false);
         }
     };
-    
+
     return (
         <div>
             <h2 className="text-3xl font-bold text-slate-100 mb-2">Know Your Job</h2>
@@ -368,7 +369,7 @@ const ResumeChecker: React.FC<ModuleProps> = ({ userType }) => {
             setIsLoading(false);
         }
     };
-    
+
     return (
         <div>
             <h2 className="text-3xl font-bold text-slate-100 mb-2">Resume Checker & Enhancer</h2>
@@ -406,8 +407,8 @@ const ResumeChecker: React.FC<ModuleProps> = ({ userType }) => {
                     </Card>
                     <Card>
                         <div className="flex justify-between items-center mb-3">
-                           <h3 className="text-xl font-semibold text-indigo-400">Enhanced Resume Snippet</h3>
-                           <Button variant="secondary" onClick={() => navigator.clipboard.writeText(result.enhancedResume)}>Copy Text</Button>
+                            <h3 className="text-xl font-semibold text-indigo-400">Enhanced Resume Snippet</h3>
+                            <Button variant="secondary" onClick={() => navigator.clipboard.writeText(result.enhancedResume)}>Copy Text</Button>
                         </div>
                         <p className="text-slate-300 whitespace-pre-wrap bg-slate-900/50 p-4 rounded-md">{result.enhancedResume}</p>
                     </Card>
@@ -441,7 +442,7 @@ const InterviewPreparator: React.FC<ModuleProps> = ({ userType }) => {
             setIsLoading(false);
         }
     };
-    
+
     return (
         <div>
             <h2 className="text-3xl font-bold text-slate-100 mb-2">Interview Preparator</h2>
@@ -467,20 +468,20 @@ const InterviewPreparator: React.FC<ModuleProps> = ({ userType }) => {
                             {result.roleSpecificSkills.map(skill => <span key={skill} className="bg-slate-700 text-slate-200 text-sm font-medium px-3 py-1 rounded-full">{skill}</span>)}
                         </div>
                     </Card>
-                     <Card>
+                    <Card>
                         <h3 className="text-xl font-semibold mb-3 text-indigo-400">Common Interview Questions</h3>
                         <ul className="list-disc list-inside space-y-2 text-slate-300">
-                           {result.commonQuestions.map((q, i) => <li key={i}>{q}</li>)}
+                            {result.commonQuestions.map((q, i) => <li key={i}>{q}</li>)}
                         </ul>
                     </Card>
                     <Card>
                         <h3 className="text-xl font-semibold mb-3 text-indigo-400">Curated Prep Links</h3>
                         <div className="space-y-2">
-                           {result.externalResources.map((res, i) => (
-                               <a href={res.url} target="_blank" rel="noopener noreferrer" key={i} className="block text-indigo-400 hover:text-indigo-300 transition-colors">
-                                  {res.title} ↗
-                               </a>
-                           ))}
+                            {result.externalResources.map((res, i) => (
+                                <a href={res.url} target="_blank" rel="noopener noreferrer" key={i} className="block text-indigo-400 hover:text-indigo-300 transition-colors">
+                                    {res.title} ↗
+                                </a>
+                            ))}
                         </div>
                     </Card>
                 </div>
@@ -493,15 +494,23 @@ const InterviewPreparator: React.FC<ModuleProps> = ({ userType }) => {
 // --- DASHBOARD COMPONENT ---
 
 interface DashboardProps {
-  userType: UserType;
-  onLogout: () => void;
+    userType: UserType;
+    onLogout: () => void;
 }
 
-const navItems: { id: NavItemId; label: string; icon: React.FC<{className?: string}> }[] = [
+// Mock Interview Icon (reusing InterviewPrep or similar if needed, or define a new one inline)
+const MockInterviewIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+    </svg>
+);
+
+const navItems: { id: NavItemId; label: string; icon: React.FC<{ className?: string }> }[] = [
     { id: 'qa-generator', label: 'Q&A Generator', icon: QAGeneratorIcon },
     { id: 'know-your-job', label: 'Know Your Job', icon: KnowYourJobIcon },
     { id: 'resume-checker', label: 'Resume Checker', icon: ResumeCheckerIcon },
     { id: 'interview-prep', label: 'Interview Prep', icon: InterviewPrepIcon },
+    { id: 'mock-interview', label: 'Mock Simulator', icon: MockInterviewIcon },
 ];
 
 const Dashboard: React.FC<DashboardProps> = ({ userType, onLogout }) => {
@@ -514,16 +523,17 @@ const Dashboard: React.FC<DashboardProps> = ({ userType, onLogout }) => {
             case 'know-your-job': return <KnowYourJob {...props} />;
             case 'resume-checker': return <ResumeChecker {...props} />;
             case 'interview-prep': return <InterviewPreparator {...props} />;
+            case 'mock-interview': return <MockInterview {...props} />;
             default: return <QAGenerator {...props} />;
         }
     };
-    
+
     return (
         <div className="flex h-screen bg-slate-900">
             {/* Sidebar */}
             <aside className="w-64 bg-slate-900/70 backdrop-blur-md border-r border-slate-800 flex flex-col p-4">
                 <div className="flex items-center gap-3 mb-8">
-                    <Logo className="h-10 w-10 text-indigo-400"/>
+                    <Logo className="h-10 w-10 text-indigo-400" />
                     <h1 className="text-xl font-bold text-slate-100">InterviewVault</h1>
                 </div>
                 <nav className="flex-1 space-y-2">
@@ -531,29 +541,28 @@ const Dashboard: React.FC<DashboardProps> = ({ userType, onLogout }) => {
                         <button
                             key={item.id}
                             onClick={() => setActiveModule(item.id)}
-                            className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-left transition-colors ${
-                                activeModule === item.id 
-                                ? 'bg-indigo-600/30 text-indigo-300' 
-                                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
-                            }`}
+                            className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-left transition-colors ${activeModule === item.id
+                                    ? 'bg-indigo-600/30 text-indigo-300'
+                                    : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                                }`}
                         >
                             <item.icon className="h-6 w-6" />
                             <span>{item.label}</span>
                         </button>
                     ))}
                 </nav>
-                 <div className="mt-auto">
+                <div className="mt-auto">
                     <div className="text-xs text-slate-500 mb-2 px-3">PROFILE</div>
                     <div className="text-center bg-slate-800 rounded-md p-3 mb-2">
                         <p className="text-sm font-semibold text-slate-200">{userType}</p>
                     </div>
                     <button onClick={onLogout} className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-slate-400 hover:bg-red-900/50 hover:text-red-300 transition-colors">
-                        <LogoutIcon className="h-6 w-6"/>
+                        <LogoutIcon className="h-6 w-6" />
                         <span>Logout</span>
                     </button>
                 </div>
             </aside>
-            
+
             {/* Main Content */}
             <main className="flex-1 p-8 overflow-y-auto">
                 <div className="max-w-4xl mx-auto">

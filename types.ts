@@ -10,7 +10,19 @@ export type View = 'auth' | 'userTypeSelector' | 'dashboard';
 
 export type AuthMode = 'login' | 'signup';
 
-export type NavItemId = 'qa-generator' | 'know-your-job' | 'resume-checker' | 'interview-prep';
+export type NavItemId = 'qa-generator' | 'know-your-job' | 'resume-checker' | 'interview-prep' | 'mock-interview';
+
+export interface InterviewMessage {
+  role: 'interviewer' | 'candidate';
+  content: string;
+  feedback?: string;
+}
+
+export interface MockInterviewState {
+  isActive: boolean;
+  messages: InterviewMessage[];
+  context: string;
+}
 
 export interface QuestionAndAnswer {
   question: string;
@@ -34,11 +46,11 @@ export interface ResumeFeedback {
 }
 
 export interface InterviewPrep {
-    companyInsights: string;
-    roleSpecificSkills: string[];
-    commonQuestions: string[];
-    externalResources: {
-        title: string;
-        url: string;
-    }[];
+  companyInsights: string;
+  roleSpecificSkills: string[];
+  commonQuestions: string[];
+  externalResources: {
+    title: string;
+    url: string;
+  }[];
 }

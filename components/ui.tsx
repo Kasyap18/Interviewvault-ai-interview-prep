@@ -4,9 +4,9 @@ import React from 'react';
 
 export const Logo: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-    <path fill="none" d="M0 0h256v256H0z"/>
-    <path fill="currentColor" d="M128 24a104 104 0 1 0 104 104A104.1 104.1 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88Z"/>
-    <path fill="currentColor" d="M168 96H88a8 8 0 0 0-8 8v48a8 8 0 0 0 8 8h80a8 8 0 0 0 8-8v-48a8 8 0 0 0-8-8Zm-8 48H96v-32h64Z"/>
+    <path fill="none" d="M0 0h256v256H0z" />
+    <path fill="currentColor" d="M128 24a104 104 0 1 0 104 104A104.1 104.1 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88Z" />
+    <path fill="currentColor" d="M168 96H88a8 8 0 0 0-8 8v48a8 8 0 0 0 8 8h80a8 8 0 0 0 8-8v-48a8 8 0 0 0-8-8Zm-8 48H96v-32h64Z" />
   </svg>
 );
 
@@ -37,9 +37,9 @@ export const InterviewPrepIcon: React.FC<{ className?: string }> = ({ className 
 );
 
 export const LogoutIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
-    </svg>
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+  </svg>
 );
 
 export const DocumentTextIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -61,15 +61,15 @@ export const CheckCircleIcon: React.FC<{ className?: string }> = ({ className })
 );
 
 export const ClipboardIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a2.25 2.25 0 0 1-2.25 2.25H9a2.25 2.25 0 0 1-2.25-2.25v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
-    </svg>
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a2.25 2.25 0 0 1-2.25 2.25H9a2.25 2.25 0 0 1-2.25-2.25v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+  </svg>
 );
 
 export const ChevronDownIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-    </svg>
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+  </svg>
 );
 
 
@@ -105,10 +105,10 @@ export const Card: React.FC<CardProps> = ({ children, className, ...props }) => 
   </div>
 );
 
-export const Spinner: React.FC<{className?: string}> = ({className}) => (
-    <div className={`flex justify-center items-center h-full ${className}`}>
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-400"></div>
-    </div>
+export const Spinner: React.FC<{ className?: string }> = ({ className }) => (
+  <div className={`flex justify-center items-center h-full ${className}`}>
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-400"></div>
+  </div>
 );
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -135,7 +135,7 @@ interface SliderProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const Slider: React.FC<SliderProps> = ({ label, value, min, max, ...props }) => {
   const progress = ((value - min) / (max - min)) * 100;
-  
+
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-1">
@@ -157,7 +157,7 @@ export const Slider: React.FC<SliderProps> = ({ label, value, min, max, ...props
 
 
 interface FileUploadProps {
-  onFileSelect: (fileContent: string, fileName: string) => void;
+  onFileSelect: (fileContent: string, fileName: string, file?: File) => void;
   acceptedFileTypes?: string;
 }
 
@@ -172,20 +172,20 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect, acceptedFi
       const reader = new FileReader();
       reader.onload = (e) => {
         const text = e.target?.result as string;
-        onFileSelect(text, file.name);
+        onFileSelect(text, file.name, file);
       };
       reader.readAsText(file);
     }
   };
-  
+
   const handleClick = () => {
     fileInputRef.current?.click();
   };
 
   return (
-    <div 
-        className="w-full p-6 border-2 border-dashed border-slate-600 rounded-lg text-center cursor-pointer hover:border-indigo-500 transition-colors"
-        onClick={handleClick}
+    <div
+      className="w-full p-6 border-2 border-dashed border-slate-600 rounded-lg text-center cursor-pointer hover:border-indigo-500 transition-colors"
+      onClick={handleClick}
     >
       <input
         type="file"

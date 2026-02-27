@@ -1,5 +1,5 @@
 import { GoogleGenAI, GenerateContentResponse, Type } from "@google/genai";
-import { UserType, JobSuggestion, ResumeFeedback, InterviewPrep } from '../types';
+import { UserType, JobSuggestion, ResumeFeedback, InterviewPrep, InterviewMessage } from '../types';
 
 if (!process.env.API_KEY) {
     console.warn("API_KEY environment variable not set. Using a placeholder. AI features will not work.");
@@ -180,6 +180,74 @@ export async function checkResume(resumeText: string, userType: UserType, target
     return JSON.parse(response.text);
 }
 
+
+export async function startMockInterview(contextText: string, userType: UserType): Promise<string> {
+    const prompt = `
+      You are an expert interviewer. We are starting a mock interview.
+      Context (Resume/JD):
+      ---
+      ${contextText}
+      ---
+      Candidate Level: ${userType}
+
+      Based on this context, introduce yourself briefly and ask the first interview question. 
+      Keep it professional and engaging.
+    `;
+    const response: GenerateContentResponse = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+    });
+    return response.text;
+}
+
+export async function getNextInterviewQuestion(
+    history: InterviewMessage[],
+    contextText: string,
+    userType: UserType
+): Promise<{ nextQuestion: string; feedback: string }> {
+    const conversationHistory = history.map(m => `${m.role === 'interviewer' ? 'Interviewer' : 'Candidate'}: ${m.content}`).join('\n');
+
+    const prompt = `
+      Continue the mock interview.
+      
+      Context:
+      ---
+      ${contextText}
+      ---
+      Candidate Level: ${userType}
+      
+      Conversation History:
+      ${conversationHistory}
+      
+      Tasks:
+      1. Briefly provide constructive feedback on the candidate's last answer (strengths/weaknesses).
+      2. Ask the next relevant interview question.
+      
+      Return a JSON object:
+      {
+        "feedback": "Your concise feedback here...",
+        "nextQuestion": "The next question here..."
+      }
+    `;
+
+    const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+        config: {
+            responseMimeType: "application/json",
+            responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                    feedback: { type: Type.STRING },
+                    nextQuestion: { type: Type.STRING }
+                },
+                required: ["feedback", "nextQuestion"]
+            }
+        },
+    });
+
+    return JSON.parse(response.text);
+}
 export async function prepareForInterview(company: string, role: string, userType: UserType): Promise<InterviewPrep> {
     const prompt = `
       Generate a concise interview preparation guide for a '${userType}' candidate interviewing for the '${role}' position at '${company}'.
@@ -187,12 +255,11 @@ export async function prepareForInterview(company: string, role: string, userTyp
       Provide the output in a single, valid JSON object with the following structure:
       {
         "companyInsights": "<A brief overview of ${company}, its culture, recent news, and what it might look for in a candidate.>",
-        "roleSpecificSkills": ["skill1", "skill2", "skill3", ...],
-        "commonQuestions": ["Question 1 specific to the role/company...", "Question 2...", ...],
+        "roleSpecificSkills": ["skill1", "skill2", "skill3"],
+        "commonQuestions": ["Question 1 specific to the role/company...", "Question 2..."],
         "externalResources": [
           {"title": "Helpful Article or Video Title 1", "url": "https://example.com/resource1"},
-          {"title": "Relevant Tech Documentation or Blog", "url": "https://example.com/resource2"},
-          ...
+          {"title": "Relevant Tech Documentation or Blog", "url": "https://example.com/resource2"}
         ]
       }
     `;
